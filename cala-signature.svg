@@ -1,0 +1,8 @@
+<svg width="170" height="42" viewBox="0 0 170 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0 4)">
+    <path d="M0 10L12 3V25L0 32V10Z" fill="#17365A"/>
+    <path d="M10 22L18 27V38L10 33V22Z" fill="#06111F"/>
+    <path d="M19 10L27 15V26L19 21V10Z" fill="#7396BA"/>
+  </g>
+  <text x="39" y="29" fill="#06111F" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" letter-spacing="-1.5">CALA</text>
+</svg>

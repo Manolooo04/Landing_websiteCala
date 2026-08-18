@@ -1,0 +1,11 @@
+<svg width="720" height="520" viewBox="0 0 720 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="520" fill="#06111F"/>
+  <g transform="translate(394 108)">
+    <path d="M0 30L54 0V100L0 130V30Z" fill="#18385B"/>
+    <path d="M42 84L76 104V191L42 171V84Z" fill="#F7F9FC"/>
+    <path d="M82 43L116 64V151L82 130V43Z" fill="#F7F9FC"/>
+  </g>
+  <text x="85" y="310" fill="#F7F9FC" font-family="Arial, Helvetica, sans-serif" font-size="118" font-weight="600" letter-spacing="-8">CALA</text>
+  <rect x="88" y="343" width="137" height="3" fill="#B7C7D9"/>
+  <text x="88" y="379" fill="#B7C7D9" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" letter-spacing="4">NEGOCIOS E INVERSIONES</text>
+</svg>
