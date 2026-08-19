@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grupo CALA — Cala Negocios e Inversiones SAC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0a0f1a;
+    --navy:#0d1526;
+    --navy-mid:#16233b;
+    --navy-panel:#1b2c48;
+    --graphite:#1b1d22;
+    --graphite-panel:#26282f;
+    --graphite-panel-2:#2f3138;
+    --ink:#eef1f6;
+    --ink-soft:#a7b0bf;
+    --steel:#7fa0c9;
+    --celeste:#8ecfff;
+    --slate:#5a6478;
+    --gold:#d69a3e;
+    --white:#f4f7fb;
+    --light-bg:#f3f6fa;
+    --light-ink:#12213b;
+    --light-ink-soft:#55617c;
+    --light-line:rgba(18,33,59,0.14);
+    --celeste-bg:#d7ecfb;
+    --celeste-deep:#0f2946;
+    --line-on-navy:rgba(255,255,255,0.10);
+    --line-on-graphite:rgba(255,255,255,0.08);
+    --radius:8px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--navy);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  /* subtle film-grain texture over the whole page */
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:2;pointer-events:none;
+    opacity:0.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+    color:var(--ink);
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;position:relative;z-index:3;}
+  section{padding:104px 0;position:relative;}
+  @media (max-width:640px){section{padding:60px 0;}.wrap{padding:0 20px;}}
+
+  .bg-navy{background:radial-gradient(ellipse 900px 500px at 85% 0%, rgba(127,160,201,0.10), transparent 60%), var(--navy);}
+  .bg-navy-deep{background:radial-gradient(ellipse 800px 500px at 10% 100%, rgba(127,160,201,0.08), transparent 55%), var(--navy-deep);}
+  .bg-navy-mid{background:radial-gradient(ellipse 900px 550px at 15% 30%, rgba(214,154,62,0.10), transparent 55%), var(--navy-mid);}
+  .bg-graphite{background:radial-gradient(ellipse 800px 500px at 90% 10%, rgba(127,160,201,0.06), transparent 55%), var(--graphite);}
+  .bg-light{
+    background:radial-gradient(ellipse 900px 500px at 90% 0%, rgba(15,41,70,0.05), transparent 60%), var(--light-bg);
+    --ink:var(--light-ink);
+    --ink-soft:var(--light-ink-soft);
+    --line-on-graphite:var(--light-line);
+    --graphite-panel:#ffffff;
+  }
+  .bg-light .eyebrow{color:#3f6690;}
+  .bg-light .eyebrow::before{background:#3f6690;}
+  .bg-light .persona:hover h3{color:#0f6fb8;}
+  .bg-light .mv-card.light{box-shadow:0 6px 20px rgba(15,33,59,0.14);}
+  .bg-celeste{
+    background:radial-gradient(ellipse 900px 500px at 10% 100%, rgba(255,255,255,0.4), transparent 60%), var(--celeste-bg);
+    --ink:var(--celeste-deep);
+    --ink-soft:#3f6690;
+  }
+  .bg-celeste .line-link:hover{color:var(--celeste-deep);}
+  .bg-celeste .line-link:hover::after{background:var(--celeste-deep);}
+
+  .reveal{transition:opacity .6s ease, transform .6s ease;}
+  .reveal.pre{opacity:0;transform:translateY(18px);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  .eyebrow{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--steel);
+    display:flex;align-items:center;gap:10px;margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--steel);display:inline-block;}
+
+  /* interactive underline-on-hover utility */
+  .line-link{position:relative;text-decoration:none;transition:color .2s ease;}
+  .line-link::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1px;background:var(--celeste);transition:width .28s ease;}
+  .line-link:hover{color:var(--celeste);}
+  .line-link:hover::after{width:100%;}
+
+  /* HEADER */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,15,26,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-on-navy);
+  }
+  .nav{max-width:1180px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .logo svg{width:28px;height:28px;}
+  .logo span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:var(--ink);letter-spacing:0.01em;}
+  .nav-links{display:flex;gap:32px;list-style:none;margin:0;padding:0;}
+  .nav-links a{font-size:14px;font-weight:500;color:var(--ink-soft);}
+  .nav-links a.contact-link{color:var(--ink);font-weight:600;}
+  .menu-toggle{display:none;background:none;border:0;font-size:22px;cursor:pointer;color:var(--ink);}
+  @media (max-width:860px){.nav-links{display:none;}.menu-toggle{display:block;}}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 24px;background:var(--steel);color:var(--navy-deep);
+    text-decoration:none;font-size:14px;font-weight:700;
+    border-radius:24px;border:1px solid var(--steel);
+    cursor:pointer;transition:background .15s, transform .15s;
+  }
+  .btn:hover{background:#9ab6d9;transform:translateY(-1px);}
+  .btn-outline{background:transparent;color:var(--ink);border:1px solid var(--line-on-navy);}
+  .btn-outline:hover{border-color:var(--steel);color:var(--steel);}
+
+  /* HERO */
+  .hero{padding:88px 0 64px;}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;}
+  @media (max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .hero h1{font-size:clamp(34px,5vw,58px);line-height:1.08;}
+  .hero h1 em{font-style:normal;color:var(--celeste);}
+  .hero-sub{margin-top:22px;font-size:17.5px;color:var(--ink-soft);max-width:50ch;}
+  .hero-cta{margin-top:32px;display:flex;gap:16px;flex-wrap:wrap;}
+
+  .hero-visual{
+    position:relative;background:linear-gradient(155deg,#16223a 0%, #0e1830 100%);
+    border:1px solid var(--line-on-navy);
+    border-radius:var(--radius);aspect-ratio:1/1.05;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+  }
+  .hero-visual .mark{width:44%;transition:transform 6s ease;}
+  .hero-visual:hover .mark{transform:rotate(4deg) scale(1.03);}
+  .hero-visual .caption{
+    position:absolute;bottom:20px;left:20px;right:20px;
+    font-family:'Space Grotesk',sans-serif;font-size:11.5px;letter-spacing:0.1em;
+    text-transform:uppercase;color:var(--ink-soft);
+  }
+
+  /* QUIENES SOMOS */
+  .somos-head{max-width:640px;margin-bottom:48px;}
+  .somos-head h2{font-size:clamp(26px,3.4vw,36px);line-height:1.16;}
+  .somos-head p{color:var(--ink-soft);margin-top:16px;font-size:16px;}
+  .mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:760px){.mv-grid{grid-template-columns:1fr;}}
+  .mv-card{padding:38px 34px;border-radius:var(--radius);border:1px solid var(--line-on-graphite);transition:transform .25s ease, border-color .25s ease;}
+  .mv-card:hover{transform:translateY(-3px);}
+  .mv-card.dark{background:var(--graphite-panel-2);}
+  .mv-card.dark:hover{border-color:var(--celeste);}
+  .mv-card.light{background:var(--graphite-panel-2);border-color:var(--graphite-panel-2);}
+  .mv-card.light:hover{border-color:var(--celeste);}
+  .mv-card.dark .mv-tag{font-family:'Space Grotesk',sans-serif;font-size:11.5px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:18px;color:var(--celeste);}
+  .mv-card.light .mv-tag{font-family:'Space Grotesk',sans-serif;font-size:11.5px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:18px;color:var(--celeste);}
+  .mv-card.dark p.body{font-size:17px;line-height:1.55;margin:0;color:#eef2f8;}
+  .mv-card.light p.body{font-size:17px;line-height:1.55;margin:0;color:#eef2f8;}
+
+  /* CHEIT */
+  .cheit-head{margin-bottom:40px;}
+  .cheit-head h2{font-size:clamp(26px,3.4vw,36px);}
+  .cheit-letters{display:flex;gap:4px;}
+  .cheit-letter-box{
+    flex:1;background:var(--navy-panel);color:#eef2f8;
+    aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,5vw,52px);
+    border-radius:6px;border:1px solid var(--line-on-navy);cursor:default;
+    transition:background .25s, color .25s, border-color .25s;
+  }
+  .cheit-letter-box:hover{background:var(--celeste);color:var(--navy-deep);border-color:var(--celeste);}
+  @media (max-width:640px){.cheit-letters{flex-wrap:wrap;}.cheit-letter-box{flex:1 1 28%;}}
+  .cheit-caption{text-align:center;margin-top:18px;font-size:13.5px;color:var(--ink-soft);font-family:'Space Grotesk',sans-serif;letter-spacing:0.04em;}
+  .cheit-caption .line-link::after{bottom:-2px;}
+
+  /* MARCAS */
+  .marcas h2{font-size:clamp(26px,3.4vw,36px);max-width:22ch;margin-bottom:40px;}
+  .marca-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  @media (max-width:960px){.marca-cards{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.marca-cards{grid-template-columns:1fr;}}
+  .marca-card{
+    border:1px solid var(--line-on-graphite);background:var(--graphite-panel);padding:24px 20px;border-radius:var(--radius);
+    min-height:110px;display:flex;flex-direction:column;justify-content:center;gap:8px;
+    transition:border-color .2s, transform .2s;
+  }
+  .marca-card:hover{border-color:var(--celeste);transform:translateY(-4px);}
+  .marca-card:hover .marca-tag{color:var(--celeste);}
+  .marca-card.soon{background:linear-gradient(155deg,#2c2416 0%, var(--graphite-panel) 70%);border-color:var(--gold);}
+  .marca-card.soon:hover{border-color:var(--gold);}
+  .marca-card.soon:hover .marca-tag{color:var(--gold);}
+  .marca-tag{font-family:'Space Grotesk',sans-serif;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--steel);transition:color .2s ease;}
+  .marca-card.soon .marca-tag{color:var(--gold);}
+  .marca-card h3{font-size:19px;}
+  .badge-soon{
+    display:inline-block;margin-top:4px;font-family:'Space Grotesk',sans-serif;
+    font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;
+    padding:5px 10px;border:1px solid var(--gold);color:var(--gold);border-radius:20px;width:fit-content;
+  }
+
+  /* SISTEMA 1% */
+  .uno .eyebrow{color:var(--gold);}
+  .uno .eyebrow::before{background:var(--gold);}
+  .uno-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:52px;align-items:center;}
+  @media (max-width:900px){.uno-grid{grid-template-columns:1fr;}}
+  .uno h2{font-size:clamp(26px,3.6vw,40px);line-height:1.15;}
+  .uno p.lead{color:var(--ink-soft);margin-top:18px;font-size:16px;max-width:44ch;}
+  .uno-big{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:88px;color:var(--gold);line-height:1;margin-top:24px;}
+  .uno-big span{font-size:16.5px;color:var(--ink-soft);font-weight:500;display:block;margin-top:8px;}
+
+  .criterio-cards{display:flex;flex-direction:column;gap:14px;}
+  .criterio-card{
+    background:var(--navy-panel);border:1px solid var(--line-on-navy);border-radius:var(--radius);
+    padding:22px 24px;cursor:pointer;transition:border-color .2s, background .2s;
+  }
+  .criterio-card:hover{border-color:var(--gold);}
+  .criterio-top{display:flex;justify-content:space-between;align-items:center;}
+  .criterio-top .name{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;}
+  .criterio-top .pts{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--gold);}
+  .criterio-desc{font-size:13.5px;color:var(--ink-soft);max-height:0;overflow:hidden;transition:max-height .3s ease, margin .3s ease;}
+  .criterio-card.open .criterio-desc{max-height:80px;margin-top:12px;}
+  .criterio-hint{font-size:11.5px;color:var(--slate);margin-top:2px;font-family:'Space Grotesk',sans-serif;letter-spacing:0.04em;}
+  .criterio-card.open .criterio-hint{display:none;}
+
+  /* EQUIPO */
+  .equipo h2{font-size:clamp(26px,3.4vw,36px);max-width:16ch;margin-bottom:8px;}
+  .equipo p.lead{color:var(--ink-soft);max-width:52ch;margin-bottom:44px;}
+  .equipo-grid{display:flex;gap:32px;align-items:center;flex-wrap:wrap;}
+  .equipo-names{display:flex;flex-direction:column;gap:20px;}
+  .persona h3{font-size:15.5px;font-weight:700;font-family:'Inter',sans-serif;transition:color .2s ease;}
+  .persona:hover h3{color:var(--celeste);}
+  .persona p{font-size:13.5px;color:var(--ink-soft);margin-top:3px;}
+  .team-carousel{
+    width:150px;height:150px;border-radius:var(--radius);overflow:hidden;
+    position:relative;background:var(--graphite-panel);border:1px solid var(--line-on-graphite);flex-shrink:0;
+  }
+  .team-carousel img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    opacity:0;transition:opacity 1.2s ease;
+  }
+  .team-carousel img.active{opacity:1;}
+  .carousel-dots{display:flex;gap:5px;margin-top:10px;}
+  .carousel-dots span{width:5px;height:5px;border-radius:50%;background:var(--line-on-graphite);transition:background .3s;}
+  .carousel-dots span.active{background:var(--gold);}
+
+  /* CONTACTO */
+  .contacto-grid{display:grid;grid-template-columns:1fr 0.85fr;gap:56px;}
+  @media (max-width:900px){.contacto-grid{grid-template-columns:1fr;gap:36px;}}
+  .contacto h2{font-size:clamp(26px,3.4vw,36px);max-width:14ch;margin-bottom:14px;}
+  .contacto p.lead{color:var(--ink-soft);max-width:44ch;margin-bottom:30px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:12px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;}
+  .field input,.field textarea{
+    width:100%;padding:13px 14px;border:1px solid var(--line-on-graphite);background:var(--graphite-panel);
+    color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;border-radius:6px;resize:vertical;
+  }
+  .field input::placeholder,.field textarea::placeholder{color:var(--slate);}
+  .field input:focus,.field textarea:focus{outline:2px solid var(--steel);outline-offset:1px;}
+  .info-card{background:var(--graphite-panel);border:1px solid var(--line-on-graphite);padding:30px;border-radius:var(--radius);}
+  .info-row{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-on-graphite);}
+  .info-row:last-of-type{border-bottom:none;}
+  .info-row .k{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);width:90px;flex-shrink:0;padding-top:2px;transition:color .2s ease;}
+  .info-row .v{font-size:14.5px;}
+  .info-row .v a{text-decoration:none;color:var(--steel);font-weight:600;}
+  .wa-btn{margin-top:20px;width:100%;justify-content:center;background:#3ba672;border-color:#3ba672;border-radius:6px;color:#08150f;}
+  .wa-btn:hover{background:#4dc186;border-color:#4dc186;}
+  .social-row{margin-top:18px;display:flex;gap:12px;}
+  .social-row a{width:36px;height:36px;border:1px solid var(--line-on-graphite);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:12px;font-weight:700;color:var(--ink-soft);transition:border-color .15s,color .15s,transform .15s;}
+  .social-row a:hover{border-color:var(--celeste);color:var(--celeste);transform:translateY(-2px);}
+  .info-row{transition:background .2s ease, padding-left .2s ease;}
+  .info-row:hover{background:rgba(142,207,255,0.05);padding-left:8px;}
+  .info-row:hover .k{color:var(--celeste);}
+
+  /* AYUDA WALLET */
+  .wallet-help{background:radial-gradient(ellipse 800px 500px at 100% 10%, rgba(142,207,255,0.11), transparent 60%), var(--navy-deep);}
+  .wallet-help-head{max-width:680px;margin-bottom:38px;}
+  .wallet-help-head h2{font-size:clamp(28px,3.8vw,42px);line-height:1.12;}
+  .wallet-help-head p{color:var(--ink-soft);margin:16px 0 0;max-width:62ch;}
+  .wallet-tabs{display:flex;gap:8px;margin-bottom:28px;border-bottom:1px solid var(--line-on-navy);flex-wrap:wrap;}
+  .wallet-tab{appearance:none;background:transparent;border:0;border-bottom:2px solid transparent;color:var(--ink-soft);font:600 15px 'Space Grotesk',sans-serif;padding:12px 4px;margin-right:26px;cursor:pointer;transition:color .25s ease,border-color .25s ease;}
+  .wallet-tab:hover{color:var(--ink);}
+  .wallet-tab[aria-selected="true"]{color:var(--celeste);border-bottom-color:var(--celeste);}
+  .wallet-panel{display:grid;grid-template-columns:0.85fr 1.15fr;gap:24px;align-items:start;}
+  @media (max-width:760px){.wallet-panel{grid-template-columns:1fr;}}
+
+  /* left column: dynamic step guide */
+  .wallet-steps-col{position:relative;}
+  .wallet-step-panel{background:var(--navy-panel);border:1px solid var(--line-on-navy);border-radius:var(--radius);padding:28px;animation:stepFadeIn .35s ease;}
+  @keyframes stepFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  .wallet-icon{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--celeste);color:var(--celeste);border-radius:50%;font:700 20px 'Space Grotesk',sans-serif;margin-bottom:20px;}
+  .wallet-step-panel h3{font-size:23px;}
+  .wallet-step-panel>p{color:var(--ink-soft);font-size:14px;margin:12px 0 22px;}
+  .wallet-steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:item;}
+  .wallet-steps li{display:flex;gap:12px;color:var(--ink-soft);font-size:13.5px;}
+  .wallet-steps li::before{content:counter(item);counter-increment:item;flex:0 0 24px;height:24px;border-radius:50%;background:var(--celeste);color:var(--navy-deep);font:700 12px/24px 'Space Grotesk',sans-serif;text-align:center;}
+  .wallet-steps li b{color:var(--ink);}
+
+  /* whatsapp visual explainer */
+  .wa-visual{display:grid;gap:12px;}
+  .wa-visual-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(59,166,114,0.12);border:1px solid rgba(59,166,114,0.4);color:#6fd6a1;font:600 12.5px 'Space Grotesk',sans-serif;padding:8px 14px;border-radius:999px;width:fit-content;}
+  .wa-visual-badge::before{content:'●';color:#3ba672;font-size:9px;}
+  .wa-notif{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.03);border:1px solid var(--line-on-navy);border-radius:10px;padding:12px 14px;}
+  .wa-notif .dot{flex:0 0 8px;height:8px;border-radius:50%;background:var(--celeste);margin-top:6px;}
+  .wa-notif span{color:var(--ink-soft);font-size:13.5px;line-height:1.5;}
+  .wa-notif b{color:var(--ink);}
+
+  /* right column: grouped FAQ accordion */
+  .faq-col{display:grid;gap:22px;}
+  .faq-group{background:var(--navy-panel);border:1px solid var(--line-on-navy);border-radius:var(--radius);padding:6px 22px;}
+  .faq-group-title{font:700 12px 'Space Grotesk',sans-serif;letter-spacing:0.06em;text-transform:uppercase;color:var(--celeste);padding:16px 0 4px;}
+  .faq-item{border-bottom:1px solid var(--line-on-navy);}
+  .faq-item:last-child{border-bottom:0;}
+  .faq-q{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;cursor:pointer;font:600 15px 'Space Grotesk',sans-serif;color:var(--ink);padding:16px 0;}
+  .faq-q:hover{color:var(--celeste);}
+  .faq-icon{flex:0 0 auto;width:22px;height:22px;display:grid;place-items:center;border:1px solid var(--celeste);border-radius:50%;color:var(--celeste);font-size:14px;line-height:1;transition:transform .3s ease,background .25s ease,color .25s ease;}
+  .faq-item.open .faq-icon{transform:rotate(135deg);background:var(--celeste);color:var(--navy-deep);}
+  .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease;}
+  .faq-item.open .faq-a{grid-template-rows:1fr;}
+  .faq-a-inner{overflow:hidden;}
+  .faq-a p{color:var(--ink-soft);font-size:13.5px;line-height:1.6;margin:0 0 18px;max-width:64ch;}
+
+  /* OFFLINE */
+  .offline-screen{position:fixed;inset:0;z-index:100;background:var(--navy-deep);display:none;align-items:center;justify-content:center;padding:28px;overflow:auto;}
+  .offline-screen.visible{display:flex;}
+  .offline-card{max-width:620px;text-align:center;}
+  .offline-code{font:700 clamp(92px,22vw,190px)/0.85 'Space Grotesk',sans-serif;letter-spacing:-0.06em;color:var(--celeste);opacity:.92;}
+  .offline-card h1{font-size:clamp(25px,4vw,38px);margin-top:22px;}
+  .offline-card p{color:var(--ink-soft);max-width:48ch;margin:14px auto 26px;}
+  .offline-status{font:500 12px 'Space Grotesk',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+  .offline-card .btn{border-radius:6px;}
+
+  footer{background:var(--navy-deep);color:var(--slate);padding:32px 0;border-top:1px solid var(--line-on-navy);}
+  .footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:13px;}
+  .footer-row a{color:var(--slate);margin-left:24px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#" class="logo">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="10,10 30,18 30,50 10,42" fill="#16294a"/>
+        <polygon points="27,32 42,38 42,58 27,52" fill="#f2f2f3"/>
+        <polygon points="35,14 50,20 50,42 35,36" fill="#f2f2f3"/>
+      </svg>
+      <span>CALA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#somos" class="line-link">Quiénes somos</a></li>
+      <li><a href="#valores" class="line-link">Valores</a></li>
+      <li><a href="#marcas" class="line-link">Marcas</a></li>
+      <li><a href="#sistema" class="line-link">Sistema 1%</a></li>
+      <li><a href="#equipo" class="line-link">Equipo</a></li>
+      <li><a href="#ayuda" class="line-link">Ayuda</a></li>
+      <li><a href="#contacto" class="contact-link line-link">Contacto</a></li>
+    </ul>
+    <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="hero bg-navy">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Cala Negocios e Inversiones SAC · Lima, Perú</div>
+      <h1>Marcas de alimentos y bebidas que la gente <em>elige volver</em> a visitar.</h1>
+      <p class="hero-sub">Grupo CALA es una empresa peruana que opera y desarrolla marcas gastronómicas en Lima. Medimos nuestro éxito en la recurrencia del cliente.</p>
+      <div class="hero-cta">
+        <a href="#contacto" class="btn">Contáctanos</a>
+        <a href="#marcas" class="btn-outline btn">Ver nuestras marcas</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg class="mark" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="40,30 95,55 95,155 40,130" fill="#16294a"/>
+        <polygon points="88,100 130,118 130,180 88,162" fill="#f2f2f3"/>
+        <polygon points="112,42 160,62 160,140 112,120" fill="#f2f2f3"/>
+      </svg>
+      <div class="caption">Grupo CALA · Negocios e Inversiones · 2026</div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal bg-light" id="somos">
+  <div class="wrap">
+    <div class="somos-head">
+      <div class="eyebrow">Quiénes somos</div>
+      <h2>Un grupo familiar peruano, construido local por local.</h2>
+      <p>Cala Negocios e Inversiones SAC nació de la sociedad entre dos socios en Lima. Operamos tres locales de alimentos y bebidas, y preparamos el lanzamiento de nuestra primera marca propia.</p>
+    </div>
+    <div class="mv-grid">
+      <div class="mv-card dark">
+        <div class="mv-tag">Nuestra misión</div>
+        <p class="body">Construimos un grupo sólido en el rubro de alimentos y bebidas, con marcas que ofrecen una experiencia de calidad. Medimos nuestro éxito en la recurrencia. Nos enfocamos en procesos y sistemas establecidos que nos permiten mejorar cada día, trabajamos en base a nuestros valores, y buscamos que nuestro personal se identifique con ellos.</p>
+      </div>
+      <div class="mv-card light">
+        <div class="mv-tag">Nuestra visión</div>
+        <p class="body">Ser un grupo empresarial peruano en constante crecimiento, con la solidez para expandirnos hacia nuevos rubros, incluso internacionalmente, con la mentalidad de representar al Perú, sin perder los valores que nos definen y con un impacto positivo real en las personas y comunidades con las que trabajamos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="valores" class="reveal bg-celeste">
+  <div class="wrap">
+    <div class="cheit-head">
+      <h2>CHEIT</h2>
+    </div>
+    <div class="cheit-letters">
+      <div class="cheit-letter-box">C</div>
+      <div class="cheit-letter-box">H</div>
+      <div class="cheit-letter-box">E</div>
+      <div class="cheit-letter-box">I</div>
+      <div class="cheit-letter-box">T</div>
+    </div>
+    <div class="cheit-caption"><span class="line-link">Compañerismo</span> · <span class="line-link">Honestidad</span> · <span class="line-link">Empatía</span> · <span class="line-link">Innovación</span> · <span class="line-link">Trabajo con criterio</span></div>
+  </div>
+</section>
+
+<section class="marcas reveal bg-graphite" id="marcas">
+  <div class="wrap">
+    <div class="eyebrow">Dónde estamos</div>
+    <h2>Tres locales en Lima, y una marca propia en camino.</h2>
+    <div class="marca-cards">
+      <div class="marca-card">
+        <div class="marca-tag">Franquicia · Açaí bowls</div>
+        <h3>Oakberry Chacarilla</h3>
+      </div>
+      <div class="marca-card">
+        <div class="marca-tag">Franquicia · Açaí bowls</div>
+        <h3>Oakberry Barranco</h3>
+      </div>
+      <div class="marca-card">
+        <div class="marca-tag">Franquicia · Repostería y café</div>
+        <h3>Alanya — El Polo</h3>
+      </div>
+      <div class="marca-card soon">
+        <div class="marca-tag">Marca propia</div>
+        <h3>Mido</h3>
+        <span class="badge-soon">Coming soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="uno reveal bg-navy-mid" id="sistema">
+  <div class="wrap uno-grid">
+    <div>
+      <div class="eyebrow">Cómo reconocemos el desempeño</div>
+      <h2>El Sistema 1%.</h2>
+      <p class="lead">Cada mes, el 1% de la venta bruta del grupo se convierte en un bono para el equipo de la tienda con mejor desempeño. La evaluación se hace semanalmente en dos frentes.</p>
+      <div class="uno-big">1<span>% de la venta bruta mensual, directo al equipo</span></div>
+    </div>
+    <div class="criterio-cards">
+      <div class="criterio-card">
+        <div class="criterio-top"><span class="name">Auditoría operativa</span><span class="pts">14 pts</span></div>
+        <div class="criterio-hint">Tocar para ver el detalle</div>
+        <div class="criterio-desc">Dos visitas operativas sin aviso por semana. Se mide orden, limpieza, estándar de producto y atención.</div>
+      </div>
+      <div class="criterio-card">
+        <div class="criterio-top"><span class="name">Cliente incógnito</span><span class="pts">11 pts</span></div>
+        <div class="criterio-hint">Tocar para ver el detalle</div>
+        <div class="criterio-desc">Una visita anónima al mes. Se mide la experiencia como si fuera cualquier cliente.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="equipo reveal bg-light" id="equipo">
+  <div class="wrap">
+    <div class="eyebrow">Equipo</div>
+    <h2>Los fundadores.</h2>
+    <p class="lead">Empresa familiar, decisiones cercanas.</p>
+    <div class="equipo-grid">
+      <div class="team-carousel" id="teamCarousel">
+        <img src="images/equipo-1.jpg" class="active" alt="Equipo Grupo CALA">
+        <img src="images/equipo-2.jpg" alt="Equipo Grupo CALA">
+        <img src="images/equipo-3.jpg" alt="Equipo Grupo CALA">
+        <img src="images/equipo-4.jpg" alt="Equipo Grupo CALA">
+      </div>
+      <div class="equipo-names">
+        <div class="persona">
+          <h3>Gianmarco Rojo</h3>
+          <p>Co-fundador · Director Comercial y de Crecimiento</p>
+        </div>
+        <div class="persona">
+          <h3>Alex Mohr</h3>
+          <p>Co-fundador · Director de Operaciones y Finanzas</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+</section>
+
+<section class="wallet-help reveal" id="ayuda">
+  <div class="wrap">
+    <div class="wallet-help-head">
+      <div class="eyebrow">Tarjetas digitales</div>
+      <h2>Tu tarjeta digital, siempre a mano.</h2>
+      <p>Guárdala en Apple Wallet o Google Wallet al escanear el QR en tienda. Acumula estampillas con cada compra y recibe tus confirmaciones y premios automáticamente por WhatsApp.</p>
+    </div>
+    <div class="wallet-tabs" role="tablist" aria-label="Elige tu billetera digital">
+      <button class="wallet-tab" role="tab" aria-selected="true" aria-controls="apple-steps" id="apple-tab">Apple Wallet</button>
+      <button class="wallet-tab" role="tab" aria-selected="false" aria-controls="google-steps" id="google-tab">Google Wallet</button>
+      <button class="wallet-tab" role="tab" aria-selected="false" aria-controls="whatsapp-steps" id="whatsapp-tab">Mensajes de WhatsApp</button>
+    </div>
+
+    <div class="wallet-panel">
+      <div class="wallet-steps-col">
+        <div class="wallet-step-panel" id="apple-steps" role="tabpanel" aria-labelledby="apple-tab">
+          <div class="wallet-icon" aria-hidden="true">A</div>
+          <h3>Apple Wallet</h3>
+          <p>Para iPhone y Apple Watch. La tarjeta queda disponible desde la app Wallet.</p>
+          <ol class="wallet-steps">
+            <li><span>Escanea el QR físico en la vitrina de la tienda y presiona <b>“Crear mi tarjeta”</b>.</span></li>
+            <li><span>Selecciona la tarjeta inicial <b>“Classic”</b>, ingresa tus datos y toca <b>“Guardar en Apple Wallet”</b>.</span></li>
+            <li><span>Muestra tu tarjeta en caja en cada compra para sumar estampillas.</span></li>
+          </ol>
+        </div>
+        <div class="wallet-step-panel" id="google-steps" role="tabpanel" aria-labelledby="google-tab" hidden>
+          <div class="wallet-icon" aria-hidden="true">G</div>
+          <h3>Google Wallet</h3>
+          <p>Para teléfonos Android. La tarjeta queda disponible desde la app Google Wallet.</p>
+          <ol class="wallet-steps">
+            <li><span>Escanea el QR en tienda y presiona <b>“Crear mi tarjeta”</b>.</span></li>
+            <li><span>Elige <b>“Classic”</b>, completa tus datos y pulsa <b>“Guardar en Google Wallet”</b> (se añade a la app Google Wallet).</span></li>
+            <li><span>Presenta tu código QR al cajero en cada pedido.</span></li>
+          </ol>
+        </div>
+        <div class="wallet-step-panel" id="whatsapp-steps" role="tabpanel" aria-labelledby="whatsapp-tab" hidden>
+          <div class="wallet-icon" aria-hidden="true">W</div>
+          <h3>Mensajes de WhatsApp</h3>
+          <p>Al guardar tu tarjeta se activa automáticamente el canal oficial de WhatsApp de CALA.</p>
+          <div class="wa-visual">
+            <span class="wa-visual-badge">Canal oficial activado</span>
+            <div class="wa-notif"><span class="dot"></span><span><b>Notificaciones en tiempo real</b> tras cada compra: estampillas acumuladas, canjes disponibles, premios y recordatorios.</span></div>
+            <div class="wa-notif"><span class="dot"></span><span>No necesitas escribir ni guardar un contacto: los mensajes llegan solos desde el número oficial de CALA.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-col">
+        <div class="faq-group">
+          <div class="faq-group-title">Wallets &amp; Registro</div>
+          <div class="faq-item open">
+            <button class="faq-q" aria-expanded="true">
+              <span>¿Necesito descargar una app adicional o crear una cuenta?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner"><p>No. La tarjeta vive nativamente en Apple Wallet o Google Wallet. No requiere crear contraseñas ni apps pesadas.</p></div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Qué pasa si no tengo Google Wallet instalado en Android?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner"><p>Al tocar “Guardar en Google Wallet”, el enlace te dirigirá a Google Play Store para instalarla gratis en segundos.</p></div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Puedo cambiar de celular sin perder mis sellos?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner"><p>Sí. Al iniciar sesión con tu misma cuenta de Apple/Google o escanear de nuevo el QR con tu número registrado, recuperarás todo tu progreso.</p></div></div>
+          </div>
+        </div>
+
+        <div class="faq-group">
+          <div class="faq-group-title">Niveles de Tarjetas &amp; Canje</div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Cómo subo de nivel a las tarjetas Works y The Oak?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner"><p>Todos inician con la tarjeta Classic (12 sellos). Al completar y canjear tu vaso de cortesía, el sistema actualizará automáticamente tu pase para los siguientes niveles: Works (14 sellos) y The Oak (15 sellos).</p></div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Cómo canjeo mi premio en tienda?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner"><p>Al completar tus sellos, te llegará la notificación de “Canje disponible”. Solo muestra tu QR al cajero para validar tu bebida gratis.</p></div></div>
+          </div>
+        </div>
+
+        <div class="faq-group">
+          <div class="faq-group-title">Comunicación por WhatsApp</div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Qué mensajes recibiré por WhatsApp?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner"><p>Recibirás 5 notificaciones de servicio exclusivas: Bienvenida tras registrar tu Wallet, Estampillas acumuladas en cada compra, Aviso de Canje disponible, Regalo de Cumpleaños y Recordatorios de Reactivación si no nos visitas en 7 a 14 días.</p></div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span>¿Qué hago si no me llegó el mensaje de confirmación a WhatsApp?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner"><p>Las estampillas quedan guardadas automáticamente en el sistema del local y en tu Wallet. El cajero siempre puede validar tu saldo escaneando tu QR.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contacto bg-navy-deep" id="contacto">
+  <div class="wrap contacto-grid">
+    <div>
+      <div class="eyebrow">Contacto</div>
+      <h2>Hablemos.</h2>
+      <p class="lead">Escríbenos por el formulario o directo por WhatsApp.</p>
+      <form onsubmit="return false;">
+        <div class="field"><label for="nombre">Nombre</label><input id="nombre" type="text" placeholder="Tu nombre completo"></div>
+        <div class="field"><label for="correo">Correo</label><input id="correo" type="email" placeholder="tucorreo@ejemplo.com"></div>
+        <div class="field"><label for="mensaje">Mensaje</label><textarea id="mensaje" rows="4" placeholder="Cuéntanos en qué podemos ayudarte"></textarea></div>
+        <button class="btn" type="submit">Enviar mensaje</button>
+      </form>
+    </div>
+    <div>
+      <div class="info-card">
+        <div class="info-row"><span class="k">Correo</span><span class="v"><a href="mailto:contacto@cala.pe">contacto@cala.pe</a></span></div>
+        <div class="info-row"><span class="k">Teléfono</span><span class="v">+51 999 999 999</span></div>
+        <div class="info-row"><span class="k">Ubicación</span><span class="v">Lima, Perú</span></div>
+        <a href="https://wa.me/51999999999" class="btn wa-btn">Escribir por WhatsApp</a>
+        <div class="social-row">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Cala Negocios e Inversiones SAC. Todos los derechos reservados.</span>
+    <span><a href="#" class="line-link">Políticas de privacidad</a></span>
+  </div>
+</footer>
+
+<div class="offline-screen" id="offlineScreen" role="alertdialog" aria-modal="true" aria-labelledby="offlineTitle" aria-describedby="offlineDescription">
+  <div class="offline-card">
+    <div class="offline-code" aria-hidden="true">404</div>
+    <div class="offline-status">Sin conexión</div>
+    <h1 id="offlineTitle">No pudimos encontrar la señal.</h1>
+    <p id="offlineDescription">Parece que tu dispositivo está sin internet. Revisa tu conexión y vuelve a intentarlo para continuar usando tu tarjeta digital.</p>
+    <button class="btn" id="retryConnection" type="button">Reintentar conexión</button>
+  </div>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach(r=>r.classList.add('pre'));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); e.target.classList.remove('pre'); } });
+  },{threshold:0.15});
+  reveals.forEach(r=>io.observe(r));
+
+  document.querySelectorAll('.criterio-card').forEach(c=>{
+    c.addEventListener('click',()=>c.classList.toggle('open'));
+  });
+
+  const carousel = document.getElementById('teamCarousel');
+  const imgs = carousel ? carousel.querySelectorAll('img') : [];
+  const dotsWrap = document.getElementById('carouselDots');
+  imgs.forEach((_,i)=>{
+    const d = document.createElement('span');
+    if(i===0) d.classList.add('active');
+    dotsWrap.appendChild(d);
+  });
+  const dots = dotsWrap ? dotsWrap.querySelectorAll('span') : [];
+  let idx = 0;
+  if(imgs.length > 1){
+    setInterval(()=>{
+      imgs[idx].classList.remove('active');
+      dots[idx].classList.remove('active');
+      idx = (idx+1) % imgs.length;
+      imgs[idx].classList.add('active');
+      dots[idx].classList.add('active');
+    }, 3200);
+  }
+
+  const walletTabs = document.querySelectorAll('.wallet-tab');
+  walletTabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      walletTabs.forEach(item=>item.setAttribute('aria-selected', item === tab ? 'true' : 'false'));
+      document.querySelectorAll('.wallet-step-panel').forEach(panel=>{
+        panel.hidden = panel.id !== tab.getAttribute('aria-controls');
+      });
+    });
+  });
+
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const btn = item.querySelector('.faq-q');
+    btn.addEventListener('click',()=>{
+      const willOpen = !item.classList.contains('open');
+      item.classList.toggle('open', willOpen);
+      btn.setAttribute('aria-expanded', String(willOpen));
+    });
+  });
+
+  const offlineScreen = document.getElementById('offlineScreen');
+  const retryConnection = document.getElementById('retryConnection');
+  const updateConnectionState = ()=>offlineScreen.classList.toggle('visible', !navigator.onLine);
+  window.addEventListener('offline', updateConnectionState);
+  window.addEventListener('online', updateConnectionState);
+  retryConnection.addEventListener('click',()=>{
+    updateConnectionState();
+    if(navigator.onLine) window.location.reload();
+  });
+  updateConnectionState();
+</script>
+
+</body>
+</html>
